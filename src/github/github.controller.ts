@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { GithubService } from './github.service';
 import { Observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
@@ -10,5 +10,13 @@ export class GithubController {
   @Get('users/:username')
   getUser(@Param('username') username: string): Observable<AxiosResponse<any>> {
     return this.githubService.getUser(username);
+  }
+
+  @Get('users/:username/following/:page')
+  getUserFollowings(
+    @Param('username') username: string,
+    @Query('page') page: number = 1,
+  ): Observable<AxiosResponse<any>> {
+    return this.githubService.getUserFollowings(username, page);
   }
 }

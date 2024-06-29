@@ -11,8 +11,16 @@ export class GithubService {
   constructor(private readonly httpService: HttpService) {}
 
   getUser(username: string): Observable<any> {
+    console.log(`${this.baseUrl}/users/${username}`);
     return this.httpService
       .get(`${this.baseUrl}/users/${username}`)
+      .pipe(map((response: AxiosResponse) => response.data));
+  }
+
+  getUserFollowings(username: string, page: number): Observable<any> {
+    console.log(`${this.baseUrl}/users/${username}/following?page=${page}`);
+    return this.httpService
+      .get(`${this.baseUrl}/users/${username}/following?page=${page}`)
       .pipe(map((response: AxiosResponse) => response.data));
   }
 }
