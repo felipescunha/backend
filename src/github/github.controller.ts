@@ -12,7 +12,7 @@ export class GithubController {
     return this.githubService.getUser(username);
   }
 
-  @Get('users/:username/following/:page')
+  @Get('users/:username/following')
   getUserFollowings(
     @Param('username') username: string,
     @Query('page') page: number = 1,
